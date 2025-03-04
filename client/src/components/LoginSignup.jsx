@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";  
 
-const API_BASE_URL = "http://localhost:3000";  
+const apiUrl = "https://full-stack-kanban-board-production.up.railway.app";  
 const LoginSignup = () => {
   const [mode, setMode] = useState("login");
   const [showPassword, setShowPassword] = useState(false);
@@ -48,7 +48,7 @@ const LoginSignup = () => {
     }
 
     try {
-      const res = await axios.post(`${API_BASE_URL}${endpoint}`, payload);
+      const res = await axios.post(`${apiUrl}${endpoint}`, payload);
 
       if (mode === "forgot") {
         toast.success("Password reset email sent!", { position: "top-center" });

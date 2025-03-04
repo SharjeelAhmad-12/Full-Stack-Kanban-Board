@@ -7,7 +7,7 @@ import { DndContext, closestCenter, DragOverlay } from "@dnd-kit/core";
 import DroppableColumn from "./Droppable";
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 
-const API_BASE_URL = "http://localhost:3000/api/task";
+const apiUrl = "https://full-stack-kanban-board-production.up.railway.app/api/task";
 
 function KanbanBoard() {
   const [cardsData, setCardData] = useState([]);
@@ -18,7 +18,7 @@ function KanbanBoard() {
   //  Fetch Tasks from API
   useEffect(() => {
     axios
-      .get(`${API_BASE_URL}/getTasks`)
+      .get(`${apiUrl}/getTasks`)
       .then((response) => {setCardData(response.data.tasks)
         // console.log(response.data.tasks);
       })
@@ -59,7 +59,7 @@ function KanbanBoard() {
         const taskToEdit = cardsData[editIndex];
 
         // Update API
-        await axios.put(`${API_BASE_URL}/updateTask/${taskToEdit._id}`, newCard);
+        await axios.put(`${apiUrl}/updateTask/${taskToEdit._id}`, newCard);
 
         // Update UI
         setCardData((prevTasks) =>
@@ -70,7 +70,7 @@ function KanbanBoard() {
         setEditIndex(null);
       } else {
         // Create API
-        const response = await axios.post(`${API_BASE_URL}/createTask`, newCard);
+        const response = await axios.post(`${apiUrl}/createTask`, newCard);
         setCardData([...cardsData, response.data.task]);
       }
     } catch (error) {
@@ -89,7 +89,7 @@ function KanbanBoard() {
   //  Delete Task
   const deleteItem = async (id) => {
     try {
-      await axios.delete(`${API_BASE_URL}/deleteTask/${id}`);
+      await axios.delete(`${apiUrl}/deleteTask/${id}`);
       setCardData(cardsData.filter((card) => card._id !== id));
     } catch (error) {
       console.error("Error deleting task:", error);
@@ -141,7 +141,7 @@ function KanbanBoard() {
     setCardData(updatedCards);
   
     try {
-      await axios.put(`${API_BASE_URL}/updateTask/${draggedCard._id}`, {
+      await axios.put(`${apiUrl}/updateTask/${draggedCard._id}`, {
         taskType: newTaskType,
         orderIndex: overIndex, 
       });

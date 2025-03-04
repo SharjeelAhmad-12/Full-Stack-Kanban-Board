@@ -1,15 +1,22 @@
 import { Routes, Route } from "react-router-dom";
 import LoginSignup from "./components/LoginSignup";
 import DashBoard from "./Page/DashBoard";
+import Loader from "./components/Loader";
+import { useState } from "react";
 
 function App() {
-  return (
-    
-      <Routes>
-        <Route path="/" element={<LoginSignup />} />
-        <Route path="/dashboard" element={<DashBoard />} /> 
-      </Routes>
+  const [loading, setLoading] = useState(true);
 
+  return (
+    <>
+      {loading && <Loader onFinish={() => setLoading(false)} />}
+      {!loading && (
+        <Routes>
+          <Route path="/" element={<LoginSignup />} />
+          <Route path="/dashboard" element={<DashBoard />} />
+        </Routes>
+      )}
+    </>
   );
 }
 
