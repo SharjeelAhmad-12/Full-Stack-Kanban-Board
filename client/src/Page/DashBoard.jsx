@@ -3,6 +3,7 @@ import { FaBell, FaUser } from "react-icons/fa";
 import { Link,useNavigate } from "react-router-dom";
 import KanbanBoard from "../components/KanbanBoard";
 import { useAuth } from "../contextApi/AuthContext";
+import backgroundImage from "../../src/assets/Background.webp";
 
 const Dashboard = () => {
   const {logout } = useAuth();
@@ -15,7 +16,7 @@ const Dashboard = () => {
   return (
     <div className="h-auto sm:h-screen pb-7"
     style={{
-      backgroundImage: 'url(https://asset.cloudinary.com/dj2haoymp/5eab99134a3567daf6864fbed35d7a62)', 
+      backgroundImage: `url(${backgroundImage})`, 
       backgroundSize: 'cover',
       backgroundPosition: 'center'
     }}
