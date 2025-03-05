@@ -16,11 +16,11 @@ const Card = ({ id, todo, description, taskType, onDelete, onEdit }) => {
   const getColors = () => {
     switch (taskType) {
       case "Critical-Task":
-        return { bgColor: "bg-red-200", textColor: "text-red-700" };
+        return { bgColor: "bg-red-200", textColor: "text-red-500" };
       case "Normal-Task":
-        return { bgColor: "bg-yellow-200", textColor: "text-yellow-700" };
+        return { bgColor: "bg-yellow-200", textColor: "text-yellow-400" };
       case "Urgent-Task":
-        return { bgColor: "bg-green-200", textColor: "text-green-700" };
+        return { bgColor: "bg-green-200", textColor: "text-green-400" };
       default:
         return { bgColor: "bg-gray-200", textColor: "text-gray-700" };
     }
@@ -29,7 +29,7 @@ const Card = ({ id, todo, description, taskType, onDelete, onEdit }) => {
   const { bgColor, textColor } = getColors();
 
   return (
-    <div ref={setNodeRef} style={style} className={`p-4 border rounded-lg shadow-md w-auto group relative ${bgColor}`}  aria-grabbed="true">
+    <div ref={setNodeRef} style={style} className={`p-4 rounded-xl bg-[#22272B] shadow-md w-auto group relative ${bgColor}`}  aria-grabbed="true">
       <div className="flex justify-between items-start">
         <div {...attributes} {...listeners} className="cursor-grab active:cursor-grabbing w-full">
           <h2 className={`text-lg font-semibold ${textColor} break-words`}>

@@ -13,8 +13,15 @@ const Dashboard = () => {
         window.location.reload();
       };
   return (
-    <div className="bg-gray-800 h-auto sm:h-screen py-7">
-      <div className="container mx-auto px-10 flex justify-between items-center text-white p-4">
+    <div className="h-auto sm:h-screen py-7"
+    style={{
+      backgroundImage: 'url(/src/assets/Background.webp)', 
+      backgroundSize: 'cover',
+      backgroundPosition: 'center'
+    }}
+    >
+       <div className="absolute inset-0 bg-black opacity-35 rounded-xl z-0"></div>
+      <div className="container mx-auto px-10 flex justify-between items-center text-white p-4 relative z-30">
         <h1 className="text-xl font-bold">Kanban Board</h1>
         <div className="flex items-center gap-4">
           <button className="p-2 bg-gray-700 rounded-full">

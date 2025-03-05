@@ -10,17 +10,17 @@ const SearchInput = ({ onSearch }) => {
   };
 
   return (
-    <div className="relative text-gray-600 border border-gray-300 rounded-full">
+    <div className="relative text-gray-600  rounded-full">
       <input
         type="search"
         value={Data}
         onChange={handleChange}
         placeholder="Search Here..."
-        className="bg-white h-10 px-5 pr-10 rounded-full text-sm focus:outline-none w-sm"
+        className="bg-gray-200 h-10 px-5 pr-10 rounded-full text-sm focus:outline-none w-sm"
       />
       <button type="submit" className="absolute right-0 top-0 mt-3 mr-4">
         <svg
-          className="h-4 w-4 fill-current bg-white"
+          className="h-4 w-4 fill-current bg-gray-200"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 56.966 56.966"
           xmlSpace="preserve"

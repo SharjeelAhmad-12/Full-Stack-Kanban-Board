@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
+import styled from 'styled-components';
 
 const Modal = ({ setCardData , editData }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -64,16 +65,66 @@ const Modal = ({ setCardData , editData }) => {
 //     }
 //   };
 
+const StyledWrapper = styled.div`
+  .container {
+    position: relative;
+    padding: 3px;
+    background: linear-gradient(90deg, #03a9f4, #f441a5);
+    border-radius: 0.9em;
+    transition: all 0.4s ease;
+  }
+
+  .container::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    border-radius: 0.9em;
+    z-index: -10;
+    filter: blur(0);
+    transition: filter 0.4s ease;
+  }
+
+  .container:hover::before {
+    background: linear-gradient(90deg, #03a9f4, #f441a5);
+    filter: blur(1.2em);
+  }
+  .container:active::before {
+    filter: blur(0.2em);
+  }
+
+  .button {
+    font-size: 1rem;
+    padding: 0.6em 0.8em;
+    border-radius: 0.5em;
+    border: none;
+    background-color: #000;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 2px 2px 3px #000000b4;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+  }
+
+  .button:hover {
+    // background-color: #b029e5;
+    box-shadow: 2px 2px 5px #000000b4;
+  }
+`;
 
   return (
     <div className="max-w-2xl mx-auto">
-      <button
-        className="block text-white bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 bg-gradient-to-r from-pink-400 to-purple-700 cursor-pointer hover:bg-[#b029e5]"
-        type="button"
-        onClick={toggleModal}
-      >
-        {editData ? "EDIT TODO" : "ADD TODO"}
-      </button>
+     <StyledWrapper>
+      <div className="container">
+        <button
+          className="button"
+          type="button"
+          onClick={toggleModal}
+        >
+          {editData ? "EDIT TODO" : "ADD TODO"}
+        </button>
+      </div>
+    </StyledWrapper>
 
       {isModalOpen && (
         <div

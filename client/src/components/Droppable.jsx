@@ -5,7 +5,7 @@ const Droppable = ({ id, children }) => {
   const { setNodeRef } = useDroppable({ id });
 
   return (
-    <div ref={setNodeRef} className="min-h-[150px] border p-4 rounded-md shadow-sm bg-white">
+    <div ref={setNodeRef} className="min-h-[150px] opacity-85 p-4 rounded-xl shadow-sm bg-black">
       {children}
     </div>
   );
