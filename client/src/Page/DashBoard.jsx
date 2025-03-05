@@ -2,11 +2,15 @@ import React from "react";
 import { FaBell, FaUser } from "react-icons/fa";
 import { Link,useNavigate } from "react-router-dom";
 import KanbanBoard from "../components/KanbanBoard";
+import { useAuth } from "../contextApi/AuthContext";
 
 const Dashboard = () => {
+  const {logout } = useAuth();
     const navigate = useNavigate();
-    const logout = () => {
+    const handleLogout = () => {
+        logout();
         navigate("/");
+        window.location.reload();
       };
   return (
     <div className="bg-gray-800 h-auto sm:h-screen py-7">
@@ -29,7 +33,7 @@ const Dashboard = () => {
               </p>
               <button
                 className="cursor-pointer border mt-3 px-5 py-2 rounded-full w-full"
-                onClick={logout} 
+                onClick={handleLogout} 
               >
                 Logout
               </button>

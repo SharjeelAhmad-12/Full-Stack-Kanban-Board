@@ -4,16 +4,18 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";  
+// import { authService } from "../api/Service";
+import { useAuth } from "../contextApi/AuthContext"; 
 
-const apiUrl = "https://full-stack-kanban-board-production.up.railway.app";  
 const LoginSignup = () => {
+  const { login, signup, loading, forgotPassword, resetPassword } = useAuth();
   const [mode, setMode] = useState("login");
   const [showPassword, setShowPassword] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [otp, setOtp] = useState("");  
+  const [confirmPassword, setConfirmPassword] = useState("");  
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -25,21 +27,16 @@ const LoginSignup = () => {
     e.preventDefault();
     setIsLoading(true);
 
-    let endpoint = "";
     let payload = {};
 
     if (mode === "signup") {
-      endpoint = "/auth/signup";
       payload = { name, email, password };
     } else if (mode === "login") {
-      endpoint = "/auth/login";
       payload = { email, password };
     } else if (mode === "forgot") {
-      endpoint = "/auth/forgot";
       payload = { email };
     } else if (mode === "reset") {
-      endpoint = "/auth/reset";
-      payload = { email, password, confirmPassword };
+      payload = { email, password, otp }; 
       if (password !== confirmPassword) {
         toast.error("Passwords do not match!", { position: "top-center" });
         setIsLoading(false);
@@ -48,26 +45,29 @@ const LoginSignup = () => {
     }
 
     try {
-      const res = await axios.post(`${apiUrl}${endpoint}`, payload);
+      let res;
+      if (mode === "signup") res = await signup(payload);
+      else if (mode === "login") res = await login(payload);
+      else if (mode === "forgot") res = await forgotPassword(payload);
+      else if (mode === "reset") res = await resetPassword(payload);
 
       if (mode === "forgot") {
-        toast.success("Password reset email sent!", { position: "top-center" });
-        setTimeout(() => setMode("reset"), 3000);
+        toast.success("Password reset email sent with OTP!", { position: "top-center" });
+        setTimeout(() => setMode("reset"), 3000); 
       } else if (mode === "reset") {
         toast.success("Password reset successful!", { position: "top-center" });
-        setTimeout(() => setMode("login"), 3000);
+        setTimeout(() => setMode("login"), 3000); 
       } else {
         toast.success(mode === "signup" ? "Signup successful!" : "Login successful!", { position: "top-center" });
-
-        if (mode === "login") {
+        if (mode === "login")
           setTimeout(() => navigate("/dashboard"), 1500);
-        }
       }
 
       setName("");
       setEmail("");
       setPassword("");
       setConfirmPassword("");
+      setOtp(""); 
     } catch (err) {
       toast.error(err.response?.data?.message || "Something went wrong");
     } finally {
@@ -124,19 +124,35 @@ const LoginSignup = () => {
           )}
 
           {mode === "reset" && (
-            <div className="mb-4">
-              <Box sx={{ "& > :not(style)": { width: "100%", borderRadius: "0.5rem" } }}>
-                <TextField
-                  label="Confirm Password"
-                  type={showPassword ? "text" : "password"}
-                  variant="outlined"
-                  fullWidth
-                  required
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                />
-              </Box>
-            </div>
+            <>
+              <div className="mb-4">
+                <Box sx={{ "& > :not(style)": { width: "100%", borderRadius: "0.5rem" } }}>
+                  <TextField
+                    label="Enter OTP"
+                    type="text"
+                    variant="outlined"
+                    fullWidth
+                    required
+                    value={otp}
+                    onChange={(e) => setOtp(e.target.value)}
+                  />
+                </Box>
+              </div>
+
+              <div className="mb-4">
+                <Box sx={{ "& > :not(style)": { width: "100%", borderRadius: "0.5rem" } }}>
+                  <TextField
+                    label="Confirm Password"
+                    type={showPassword ? "text" : "password"}
+                    variant="outlined"
+                    fullWidth
+                    required
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                  />
+                </Box>
+              </div>
+            </>
           )}
 
           <button
@@ -148,32 +164,17 @@ const LoginSignup = () => {
               <>
                 <CircularProgress size={20} color="inherit" className="mr-2" /> Processing...
               </>
-            ) : mode === "signup" ? (
-              "Sign Up"
-            ) : mode === "forgot" ? (
-              "Send Reset Email"
-            ) : mode === "reset" ? (
-              "Reset Password"
-            ) : (
-              "Login"
-            )}
+            ) : mode === "signup" ? "Sign Up" : mode === "forgot" ? "Send Reset Email" : mode === "reset" ? "Reset Password" : "Login"}
           </button>
         </form>
 
         <div className="flex flex-col justify-between items-center mt-5">
           {mode === "login" && (
             <>
-              <button className="text-base text-blue-500" onClick={() => setMode("signup")}>
-                Don't have an account? Sign Up
-              </button>
-              <button className="text-base text-blue-500" onClick={() => setMode("forgot")}>
-                Forgot Password?
-              </button>
+              <button className="text-base text-blue-500" onClick={() => setMode("signup")}>Don't have an account? Sign Up</button>
+              <button className="text-base text-blue-500" onClick={() => setMode("forgot")}>Forgot Password?</button>
             </>
           )}
-          {mode === "signup" && <button className="text-base text-blue-500" onClick={() => setMode("login")}>Already have an account? Login</button>}
-          {mode === "forgot" && <button className="text-base text-blue-500" onClick={() => setMode("login")}>Back to Login</button>}
-          {mode === "reset" && <button className="text-base text-blue-500" onClick={() => setMode("login")}>Back to Login</button>}
         </div>
       </div>
     </div>

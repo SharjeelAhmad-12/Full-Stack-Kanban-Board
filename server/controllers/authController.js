@@ -41,9 +41,9 @@ const forgetPassword = async (req, res, next) => {
         const user = await UserModel.findOne({ email });
         if (!user) return res.status(404).json({ message: "User Not Found" });
 
-        const OTP = Math.floor(1000 + Math.random() * 9000); 
+        const otp = Math.floor(1000 + Math.random() * 9000); 
 
-        await UserModel.findByIdAndUpdate(user._id, { OTP }, { new: true });
+        await UserModel.findByIdAndUpdate(user._id, { otp }, { new: true });
 
         const transporter = nodeMailer.createTransport({
             service: 'gmail',
@@ -56,11 +56,11 @@ const forgetPassword = async (req, res, next) => {
         await transporter.sendMail({
             from: process.env.EMAIL_USER,
             to: email,
-            subject: "OTP for Password Reset",
-            text: `Your OTP is: ${OTP}`
+            subject: "otp for Password Reset",
+            text: `Your otp is: ${otp}`
         });
 
-        res.status(200).json({ message: "OTP Sent to Email" });
+        res.status(200).json({ message: "otp Sent to Email" });
     } catch (error) {
         next(error);
     }
@@ -68,14 +68,14 @@ const forgetPassword = async (req, res, next) => {
 
 const resetPassword = async (req, res, next) => {
     try {
-        const { email, OTP, password } = req.body;
+        const { email, password,otp } = req.body;
         const user = await UserModel.findOne({ email });
 
         if (!user) return res.status(404).json({ message: "User Not Found" });
-        if (Number(OTP) !== user.OTP) return res.status(400).json({ message: "Invalid OTP" });
+        if (Number(otp) !== user.otp) return res.status(400).json({ message: "Invalid OTP" });
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        await UserModel.findByIdAndUpdate(user._id, { password: hashedPassword, OTP: null });
+        await UserModel.findByIdAndUpdate(user._id, { password: hashedPassword, otp: null });
 
         res.status(200).json({ message: "Password Updated Successfully" });
     } catch (error) {
