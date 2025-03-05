@@ -13,14 +13,14 @@ const Dashboard = () => {
         window.location.reload();
       };
   return (
-    <div className="h-auto sm:h-screen py-7"
+    <div className="h-auto sm:h-screen pb-7"
     style={{
-      backgroundImage: 'url(/src/assets/Background.webp)', 
+      backgroundImage: 'url(/assets/Background.webp)', 
       backgroundSize: 'cover',
       backgroundPosition: 'center'
     }}
     >
-       <div className="absolute inset-0 bg-black opacity-35 rounded-xl z-0"></div>
+       <div className="absolute inset-0 bg-black opacity-35  z-0"></div>
        <div className="w-full bg-black bg-opacity-50">
       <div className="container mx-auto px-10 flex justify-between items-center text-white p-4 relative z-30">
         <h1 className="text-xl font-bold">Kanban Board</h1>
