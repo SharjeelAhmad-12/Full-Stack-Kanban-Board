@@ -109,7 +109,7 @@ function KanbanBoard() {
   return (
     <DndContext collisionDetection={closestCenter} onDragEnd={onDragEnd} onDragStart={onDragStart}>
       <div className="container mx-auto mt-10">
-        <div className="flex flex-col sm:flex-row gap-y-4 space-x-5 justify-center items-center relative z-50">
+        <div className="flex flex-col sm:flex-row gap-y-4 space-x-5 justify-center items-center relative z-20">
           <SearchInput onSearch={handleSearchChange} />
           <Modal setCardData={handleSaveTask} editData={editIndex !== null ? cardsData[editIndex] : null} />
         </div>

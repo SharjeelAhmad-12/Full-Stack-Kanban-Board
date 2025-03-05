@@ -22,7 +22,7 @@ const Dashboard = () => {
     }}
     >
        <div className="absolute inset-0 bg-black opacity-35  z-0"></div>
-       <div className="w-full bg-black bg-opacity-50">
+       <div className="w-full bg-black bg-opacity-50 mb-16">
       <div className="container mx-auto px-10 flex justify-between items-center text-white p-4 relative z-30">
         <h1 className="text-xl font-bold">Kanban Board</h1>
         <div className="flex items-center gap-4">
@@ -34,7 +34,7 @@ const Dashboard = () => {
             <button className="p-2 bg-gray-700 rounded-full">
               <FaUser />
             </button>
-            <div className="absolute right-0  w-48 bg-white shadow-md text-black px-4 py-4 hidden group-hover:block rounded-lg">
+            <div className="absolute right-0  w-48 bg-white shadow-md text-black px-4 py-4 hidden group-hover:block rounded-lg z-50">
               <p>
                 <Link to="#" className="text-blue-500">
                   Change Password
