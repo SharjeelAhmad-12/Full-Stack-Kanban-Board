@@ -114,7 +114,7 @@ function KanbanBoard() {
           <Modal setCardData={handleSaveTask} editData={editIndex !== null ? cardsData[editIndex] : null} />
         </div>
 
-        <div className="mt-10 m-12 grid grid-cols-1 md:grid-cols-3 gap-10 bg-gray-100 p-6 rounded-3xl">
+        <div className="mt-10 m-12 grid grid-cols-1 md:grid-cols-3 gap-10 ">
           {Object.entries(categorizedTasks).map(([key, taskList]) => (
             <DroppableColumn key={key} id={key}>
               <SortableContext items={taskList.map((task) => task._id)} strategy={verticalListSortingStrategy}>
