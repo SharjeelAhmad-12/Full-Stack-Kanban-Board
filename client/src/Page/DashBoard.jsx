@@ -15,7 +15,7 @@ const Dashboard = () => {
   return (
     <div className="h-auto sm:h-screen pb-7"
     style={{
-      backgroundImage: 'url(/assets/Background.webp)', 
+      backgroundImage: 'url(https://asset.cloudinary.com/dj2haoymp/5eab99134a3567daf6864fbed35d7a62)', 
       backgroundSize: 'cover',
       backgroundPosition: 'center'
     }}
