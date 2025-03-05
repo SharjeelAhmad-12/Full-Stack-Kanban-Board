@@ -21,6 +21,7 @@ const Dashboard = () => {
     }}
     >
        <div className="absolute inset-0 bg-black opacity-35 rounded-xl z-0"></div>
+       <div className="w-full bg-black bg-opacity-50">
       <div className="container mx-auto px-10 flex justify-between items-center text-white p-4 relative z-30">
         <h1 className="text-xl font-bold">Kanban Board</h1>
         <div className="flex items-center gap-4">
@@ -47,6 +48,7 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
+      </div>
       </div>
 
       <KanbanBoard />
