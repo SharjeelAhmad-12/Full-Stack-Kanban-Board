@@ -35,7 +35,7 @@ const Card = ({ id, todo, description, taskType, onDelete, onEdit }) => {
           <h2 className={`text-lg font-semibold ${textColor} break-words`}>
             {todo}
           </h2>
-          <p className="text-sm text-gray-700 break-words">{description}</p>
+          <p className="text-sm text-gray-300 break-words">{description}</p>
         </div>
         <div className="flex space-x-1 absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <EditButton onEdit={onEdit} />
