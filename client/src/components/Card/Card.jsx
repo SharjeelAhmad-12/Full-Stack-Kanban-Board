@@ -29,7 +29,7 @@ const Card = ({ id, todo, description, taskType, onDelete, onEdit }) => {
   const { bgColor, textColor } = getColors();
 
   return (
-    <div ref={setNodeRef} style={style} className={`p-4 rounded-xl bg-[#22272B] shadow-md w-auto group relative ${bgColor}`}  aria-grabbed="true">
+    <div ref={setNodeRef} style={style} className={`p-4 rounded-xl bg-[#22272B] shadow-md w-auto group relative ${bgColo}`}  aria-grabbed="true">
       <div className="flex justify-between items-start">
         <div {...attributes} {...listeners} className="cursor-grab active:cursor-grabbing w-full">
           <h2 className={`text-lg font-semibold ${textColor} break-words`}>
